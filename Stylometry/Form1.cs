@@ -16,5 +16,10 @@ namespace Stylometry
         {
             InitializeComponent();
         }
+
+        private void StartButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }
