@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stylometry", "Stylometry.csproj", "{7C03B369-987B-44A1-A580-10E2FD0801C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stylometry", "Stylometry.csproj", "{8697A7F3-047D-48B3-AC81-3D8A469625C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7C03B369-987B-44A1-A580-10E2FD0801C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C03B369-987B-44A1-A580-10E2FD0801C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C03B369-987B-44A1-A580-10E2FD0801C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C03B369-987B-44A1-A580-10E2FD0801C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8697A7F3-047D-48B3-AC81-3D8A469625C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8697A7F3-047D-48B3-AC81-3D8A469625C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8697A7F3-047D-48B3-AC81-3D8A469625C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8697A7F3-047D-48B3-AC81-3D8A469625C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9F9C24EE-C4E6-493F-87F3-8C33CC5803DB}
+		SolutionGuid = {72EDFB7D-FE82-429D-8B56-CF079558776B}
 	EndGlobalSection
 EndGlobal

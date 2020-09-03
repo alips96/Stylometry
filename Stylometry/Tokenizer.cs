@@ -77,7 +77,7 @@ namespace Stylometry
 
             for (int i = 1; i < authorsList.Count; i++)
             {
-                if(authorsList[i].Id.CompareTo(authorsList[i - 1].Id) == 0)
+                if (authorsList[i].Id.CompareTo(authorsList[i - 1].Id) == 0)
                 {
                     myDic[authorsList[i].Id] += " " + authorsList[i].Text;
                 }

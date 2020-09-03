@@ -1,0 +1,11 @@
+E:\Idea Projects\Stylometry\Stylometry\bin\Debug\Stylometry.exe.config
+E:\Idea Projects\Stylometry\Stylometry\bin\Debug\Stylometry.exe
+E:\Idea Projects\Stylometry\Stylometry\bin\Debug\Stylometry.pdb
+E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.csprojAssemblyReference.cache
+E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.Form1.resources
+E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.Properties.Resources.resources
+E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.csproj.GenerateResource.cache
+E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.csproj.CoreCompileInputs.cache
+E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.exe
+E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.pdb
+E:\Idea Projects\Stylometry\Stylometry\bin\Debug\Corpus.csv

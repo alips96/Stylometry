@@ -16,20 +16,28 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="673f2cf8-03ac-4d14-ba46-4c64d933c009" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/Stylometry.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="673f2cf8-03ac-4d14-ba46-4c64d933c009" name="Default Changelist" comment="author records saved and classified">
+      <change afterPath="$PROJECT_DIR$/Stylometry/WordTokenizer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stylometry/.vs/Stylometry/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/Stylometry/.vs/Stylometry/v16/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stylometry/Feature.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Stylometry/Feature.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stylometry/StructuralAnalyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Stylometry/StructuralAnalyzer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stylometry/obj/Debug/DesignTimeResolveAssemblyReferences.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Stylometry/obj/Debug/DesignTimeResolveAssemblyReferences.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stylometry/obj/Debug/Stylometry.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Stylometry/obj/Debug/Stylometry.csprojAssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="SOFT" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="1gxmQKi1wnO55s9Ncnbx0hGM08L" />
@@ -53,7 +61,18 @@
             <State>
               <option name="CUSTOM_BOOLEAN_PROPERTIES">
                 <map>
-                  <entry key="Show.Git.Branches" value="false" />
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
                 </map>
               </option>
             </State>
@@ -61,8 +80,37 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="First Commit" />
+    <MESSAGE value="Initiating Project" />
+    <MESSAGE value="Corpus Configuration" />
+    <MESSAGE value="author records saved and classified" />
+    <MESSAGE value="Sorting Authors" />
+    <MESSAGE value="Sentence Tokenizing" />
+    <MESSAGE value="Feauture class initial setup" />
+    <MESSAGE value="Word Tokenizer Completed" />
+    <MESSAGE value="Structural Analyzer Completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Structural Analyzer Completed" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="92" y="92" width="1182" height="544" key="DiffContextDialog" timestamp="1599157606148">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="92" y="92" width="1182" height="544" key="DiffContextDialog/0.0.1366.728@0.0.1366.728" timestamp="1599157606148" />
+    <state x="493" y="66" key="RollbackChangesDialog" timestamp="1599066119764">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="493" y="66" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1599066119764" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1599155747065">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1599155747065" />
+    <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599065008433">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1599065008433" />
   </component>
 </project>

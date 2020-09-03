@@ -33,13 +33,13 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(317, 211);
+            this.StartButton.Location = new System.Drawing.Point(318, 75);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(118, 60);
+            this.StartButton.Size = new System.Drawing.Size(144, 73);
             this.StartButton.TabIndex = 0;
-            this.StartButton.Text = "Start";
+            this.StartButton.Text = "button1";
             this.StartButton.UseVisualStyleBackColor = true;
-            this.StartButton.Click += new System.EventHandler(this.StartButton_Clicked);
+            //this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // Form1
             // 
@@ -48,7 +48,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.StartButton);
             this.Name = "Form1";
-            this.Text = "Stylometry";
+            this.Text = "Form1";
             this.ResumeLayout(false);
 
         }

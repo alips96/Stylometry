@@ -44,10 +44,5 @@ namespace Stylometry
                 Where(row => row.Length > 0).
                 Select(Author.ParseRow).ToList();
         }
-
-        private void StartButton_Clicked(object sender, EventArgs e)
-        {
-
-        }
     }
 }
