@@ -10,18 +10,25 @@ namespace Stylometry
     public partial class Form1 : Form
     {
         List<Author> authorsList;
-        List<Tokenizer> tokenizedList;
+        List<Tokenizer> sentencetokenizedList;
+        List<Feature> sentenceFeaturesList;
 
         public Form1()
         {
             InitializeComponent();
             CreateAuthorsList();
             TokenizeAuthorsText();
+            ExtractSentenceFeatures();
+        }
+
+        private void ExtractSentenceFeatures()
+        {
+            sentenceFeaturesList = Feature.ExtractFeatures(sentencetokenizedList);
         }
 
         private void TokenizeAuthorsText()
         {
-            tokenizedList = Tokenizer.TokenizeEveryText(authorsList);
+            sentencetokenizedList = Tokenizer.TokenizeEveryText(authorsList);
         }
 
         private void CreateAuthorsList()

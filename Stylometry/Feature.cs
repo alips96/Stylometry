@@ -8,7 +8,7 @@ namespace Stylometry
 {
     public class Feature
     {
-        public int Sentence { get; set; }
+        public string Sentence { get; set; }
         public int WordCount { get; set; }
         public int AverageLetterCount { get; set; }
         public int NounCount { get; set; }
@@ -20,7 +20,7 @@ namespace Stylometry
         public List<string> TrainTokens { get; set; }
         public List<string> TestTokens { get; set; }
 
-        public Feature(int _Sentence, int _WordCound, int _AverageLetterCount
+        public Feature(string _Sentence, int _WordCound, int _AverageLetterCount
             , int _NounCount, int _VerbCount, int _MostCommonWordCount,
             int _SecondMostCommonWordCount, int _AuthorId)
         {
@@ -32,6 +32,32 @@ namespace Stylometry
             MostCommonWordCount = _MostCommonWordCount;
             SecondMostCommonWordCount = _SecondMostCommonWordCount;
             AuthorId = _AuthorId;
+        }
+
+        internal static List<Feature> ExtractFeatures(List<Tokenizer> sentenceList)
+        {
+            List<Feature> featureList = new List<Feature>();
+
+            foreach (Tokenizer tokenizer in sentenceList)
+            {
+                foreach (string sentence in tokenizer.TrainTokens)
+                {
+                    featureList.Add(GenerateFeatureInstance(sentence, tokenizer.AuthorId));
+                }
+            }
+
+            return featureList;
+        }
+
+        private static Feature GenerateFeatureInstance(string sentence, int authorId)
+        {
+            int wordCount, averageLetterCount, nounCount, verbCount, mostCommonWordCount, secondMostCommonWordCount;
+            wordCount = averageLetterCount = nounCount = verbCount = mostCommonWordCount = secondMostCommonWordCount = 0;
+
+            List<string> wordsList = StructuralAnalyzer.TokenizeWords(sentence);
+            //wordCount = StructuralAnalyzer.CountWords(sentence);
+
+            return new Feature(sentence, wordCount, averageLetterCount, nounCount, verbCount, mostCommonWordCount, secondMostCommonWordCount, authorId);
         }
     }
 }
