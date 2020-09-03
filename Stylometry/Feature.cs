@@ -62,6 +62,8 @@ namespace Stylometry
             wordCount = StructuralAnalyzer.CountWords(wordsList);
             averageLetterCount = StructuralAnalyzer.GetAverageLetterCount(wordsList, wordCount);
 
+            nounCount = GrammaticalAnalyzer.GetNumberOfNouns(wordsList, wordCount);
+
             return new Feature(sentence, wordCount, averageLetterCount, nounCount, verbCount, mostCommonWordCount, secondMostCommonWordCount, authorId);
         }
     }

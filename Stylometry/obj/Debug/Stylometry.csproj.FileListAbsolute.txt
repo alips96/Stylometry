@@ -9,3 +9,9 @@ E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.csproj.CoreCompileIn
 E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.exe
 E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.pdb
 E:\Idea Projects\Stylometry\Stylometry\bin\Debug\Corpus.csv
+E:\Idea Projects\Stylometry\Stylometry\bin\Debug\OpenNLP.dll
+E:\Idea Projects\Stylometry\Stylometry\bin\Debug\SharpEntropy.dll
+E:\Idea Projects\Stylometry\Stylometry\obj\Debug\Stylometry.csproj.CopyComplete
+E:\Idea Projects\Stylometry\Stylometry\bin\Debug\en-pos-maxent.bin
+E:\Idea Projects\Stylometry\Stylometry\bin\Debug\en-pos-perceptron.bin
+E:\Idea Projects\Stylometry\Stylometry\bin\Debug\EnglishPOS.nbin
