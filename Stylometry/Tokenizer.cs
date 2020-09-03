@@ -12,6 +12,13 @@ namespace Stylometry
         public List<string> TrainTokens { get; set; }
         public List<string> TestTokens { get; set; }
 
+        public Tokenizer(int _authorId, List<string> _TrainTokens, List<string> _TestTokens)
+        {
+            AuthorId = _authorId;
+            TrainTokens = _TrainTokens;
+            TestTokens = _TestTokens;
+        }
+
         /// <summary>
         /// Here we add all the text belonging to each author and then tokenize and divide it inot to separate 
         /// train and test lists.
@@ -22,10 +29,44 @@ namespace Stylometry
         {
             List<Tokenizer> myList = new List<Tokenizer>();
 
-            //List<string> trainAndTestList = GetTrainAndTestList(0); //passing the first item of the list
             Dictionary<int, string> authorsDic = GetAuthorsDic(authorsList); //Gathering all the text.
 
+            foreach (KeyValuePair<int, string> item in authorsDic)
+            {
+                List<string>[] trainAndTestArr = GetTrainAndTestList(item);
+
+                myList.Add(new Tokenizer(item.Key, trainAndTestArr[0], trainAndTestArr[1]));
+            }
+
             return myList;
+        }
+
+        private static List<string>[] GetTrainAndTestList(KeyValuePair<int, string> item)
+        {
+            List<string> trainTokens = new List<string>();
+            List<string> testTokens = new List<string>();
+            List<string>[] returnList = new List<string>[2];
+
+            List<string> allTokens = item.Value.Split(new string[] { ". " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            float splitIndex = 0.7f * allTokens.Count;
+
+            for (int i = 0; i < allTokens.Count; i++)
+            {
+                if (i < splitIndex)
+                {
+                    trainTokens.Add(allTokens[i]);
+                }
+                else
+                {
+                    testTokens.Add(allTokens[i]);
+                }
+            }
+
+            returnList[0] = trainTokens;
+            returnList[1] = testTokens;
+
+            return returnList;
         }
 
         private static Dictionary<int, string> GetAuthorsDic(List<Author> authorsList)
@@ -47,11 +88,6 @@ namespace Stylometry
             }
 
             return myDic;
-        }
-
-        private static List<string> GetTrainAndTestList(int index)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Stylometry
     public partial class Form1 : Form
     {
         List<Author> authorsList;
-        List<Tokenizer> tokenizedText;
+        List<Tokenizer> tokenizedList;
 
         public Form1()
         {
@@ -21,7 +21,7 @@ namespace Stylometry
 
         private void TokenizeAuthorsText()
         {
-            tokenizedText = Tokenizer.TokenizeEveryText(authorsList);
+            tokenizedList = Tokenizer.TokenizeEveryText(authorsList);
         }
 
         private void CreateAuthorsList()
