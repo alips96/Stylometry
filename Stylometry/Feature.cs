@@ -42,7 +42,10 @@ namespace Stylometry
             {
                 foreach (string sentence in tokenizer.TrainTokens)
                 {
-                    featureList.Add(GenerateFeatureInstance(sentence, tokenizer.AuthorId));
+                    if (sentence != "..") //exeption
+                    {
+                        featureList.Add(GenerateFeatureInstance(sentence, tokenizer.AuthorId));
+                    }
                 }
             }
 
@@ -54,8 +57,12 @@ namespace Stylometry
             int wordCount, averageLetterCount, nounCount, verbCount, mostCommonWordCount, secondMostCommonWordCount;
             wordCount = averageLetterCount = nounCount = verbCount = mostCommonWordCount = secondMostCommonWordCount = 0;
 
-            List<string> wordsList = StructuralAnalyzer.TokenizeWords(sentence);
-            //wordCount = StructuralAnalyzer.CountWords(sentence);
+            List<string> wordsList = WordTokenizer.TokenizeWords(sentence);
+
+            wordCount = StructuralAnalyzer.CountWords(wordsList);
+            averageLetterCount = StructuralAnalyzer.GetAverageLetterCount(wordsList, wordCount);
+
+
 
             return new Feature(sentence, wordCount, averageLetterCount, nounCount, verbCount, mostCommonWordCount, secondMostCommonWordCount, authorId);
         }

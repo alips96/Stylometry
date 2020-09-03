@@ -8,40 +8,21 @@ namespace Stylometry
 {
     public class StructuralAnalyzer
     {
-        internal static int CountWords(string sentence)
+        internal static int CountWords(List<string> wordsList)
         {
-            return 0;
+            return wordsList.Count;
         }
 
-        internal static List<string> TokenizeWords(string sentence)
+        internal static int GetAverageLetterCount(List<string> wordsList, int wordCount)
         {
-            char[] splitTokens = new char[] { ' ', ':', '(', ')', '.', '!', '?', ',', '*', '{','}','[',']' };
-            List<string> words = sentence.Split(splitTokens, StringSplitOptions.RemoveEmptyEntries).ToList();
-            words = FixFloatNumbers(words);
-            return words;
-        }
+            int counter = 0;
 
-        private static List<string> FixFloatNumbers(List<string> words)
-        {
-            List<string> newList = new List<string>();
-
-
-            for (int i = 0; i < words.Count - 1; i++)
+            foreach (string word in wordsList)
             {
-                if(char.IsDigit(words[i][0]) && char.IsDigit(words[i + 1][0]))
-                {
-                    newList.Add(words[i] + "." + words[i + 1]);
-                    i++;
-                }
-                else
-                {
-                    newList.Add(words[i].ToLower());
-                }
+                counter += word.Length;
             }
 
-            newList.Add(words[words.Count - 1].ToLower());
-
-            return newList;
+            return counter / wordCount;
         }
     }
 }
