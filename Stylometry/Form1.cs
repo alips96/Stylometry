@@ -9,16 +9,25 @@ namespace Stylometry
 {
     public partial class Form1 : Form
     {
+        List<Author> authorsList;
+        List<Tokenizer> tokenizedText;
+
         public Form1()
         {
             InitializeComponent();
             CreateAuthorsList();
+            TokenizeAuthorsText();
+        }
+
+        private void TokenizeAuthorsText()
+        {
+            tokenizedText = Tokenizer.TokenizeEveryText(authorsList);
         }
 
         private void CreateAuthorsList()
         {
-            List<Author> authors = ProcessCorpus("Corpus.csv");
-            StartButton.Text = authors[0].Text;
+            authorsList = ProcessCorpus("Corpus.csv");
+            StartButton.Text = authorsList[0].Text;
         }
 
         private List<Author> ProcessCorpus(string path)
