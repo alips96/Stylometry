@@ -71,9 +71,10 @@ namespace Stylometry
 
         private static Dictionary<int, string> GetAuthorsDic(List<Author> authorsList)
         {
-            Dictionary<int, string> myDic = new Dictionary<int, string>();
-
-            myDic.Add(authorsList[0].Id, authorsList[0].Text);
+            Dictionary<int, string> myDic = new Dictionary<int, string>
+            {
+                { authorsList[0].Id, authorsList[0].Text }
+            };
 
             for (int i = 1; i < authorsList.Count; i++)
             {
