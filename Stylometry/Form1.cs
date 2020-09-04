@@ -12,6 +12,7 @@ namespace Stylometry
         List<Author> authorsList;
         List<Tokenizer> sentencetokenizedList;
         List<Feature> sentenceFeaturesList;
+        List<TrainedData> normalizedFeaturesList;
 
         public Form1()
         {
@@ -19,6 +20,18 @@ namespace Stylometry
             CreateAuthorsList();
             TokenizeAuthorsText();
             ExtractSentenceFeatures();
+            NormalizerFeatures();
+            TrainAndTestData();
+        }
+
+        private void NormalizerFeatures()
+        {
+            normalizedFeaturesList = Normalizer.NormalizeFeaturesList(sentenceFeaturesList);
+        }
+
+        private void TrainAndTestData()
+        {
+            StatisticalClassification.StartTrainingAndTestData(normalizedFeaturesList);
         }
 
         private void ExtractSentenceFeatures()

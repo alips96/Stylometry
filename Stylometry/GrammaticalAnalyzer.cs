@@ -17,7 +17,7 @@ namespace Stylometry
             "i","a","about","an","are","as","at","be","by","for","in","is","it","of","to","the","will","who","there","and"
         };
 
-        internal static int GetNumberOfNouns(string[] posArr, int wordCount)
+        internal static int GetNumberOfNouns(string[] posArr)
         {
             int nounCounter = 0;
 
@@ -32,7 +32,7 @@ namespace Stylometry
             return nounCounter;
         }
 
-        internal static int GetNumberOfVerbs(string[] posArr, int wordCount)
+        internal static int GetNumberOfVerbs(string[] posArr)
         {
             int verbCounter = 0;
 

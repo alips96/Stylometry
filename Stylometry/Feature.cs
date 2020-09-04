@@ -10,27 +10,29 @@ namespace Stylometry
     {
         public string Sentence { get; set; }
         public int WordCount { get; set; }
+        public int WordCountWithoutStopWords { get; set; }
         public int AverageLetterCount { get; set; }
         public float NounFrequency { get; set; }
         public float VerbFrequency { get; set; }
         public int MostCommonWordCount { get; set; }
-        public int SecondMostCommonWordCount { get; set; }
+        public int TagsDiversity { get; set; }
         public int AuthorId { get; set; }
 
         public List<string> TrainTokens { get; set; }
         public List<string> TestTokens { get; set; }
 
-        public Feature(string _Sentence, int _WordCount, int _AverageLetterCount
-            , float _NounFrequency, float _VerbFrequency, int _MostCommonWordCount,
-            int _SecondMostCommonWordCount, int _AuthorId)
+        public Feature(string _Sentence, int _WordCount, int _WordCountWithoutStopWords, int _AverageLetterCount
+            , int _NounFrequency, int _VerbFrequency, int _MostCommonWordCount,
+            int _TagsDiversity, int _AuthorId)
         {
             Sentence = _Sentence;
             WordCount = _WordCount;
+            WordCountWithoutStopWords = _WordCountWithoutStopWords;
             AverageLetterCount = _AverageLetterCount;
             NounFrequency = _NounFrequency;
             VerbFrequency = _VerbFrequency;
             MostCommonWordCount = _MostCommonWordCount;
-            SecondMostCommonWordCount = _SecondMostCommonWordCount;
+            TagsDiversity = _TagsDiversity;
             AuthorId = _AuthorId;
         }
 
@@ -65,8 +67,8 @@ namespace Stylometry
 
             //eliminating stop words of count
             int wordsCountWithoutStopWords = GrammaticalAnalyzer.RemoveStopWords(wordsList);
-            nounFrequency = GrammaticalAnalyzer.GetNumberOfNouns(posTags, wordsCountWithoutStopWords);
-            verbFrequency = GrammaticalAnalyzer.GetNumberOfVerbs(posTags, wordsCountWithoutStopWords);
+            nounFrequency = GrammaticalAnalyzer.GetNumberOfNouns(posTags);
+            verbFrequency = GrammaticalAnalyzer.GetNumberOfVerbs(posTags);
 
             List<string> stemmedWordsList = Stemmer.GetStemmedWordsList(wordsList);
             //List<string> lemmatizedWordsList = Lemmatizer.GetLemmatizedWordsList(stemmedWordsList, posTags);
@@ -74,7 +76,7 @@ namespace Stylometry
             mostCommonWordFrequency = LiteralAnalysis.GetMostCommonWordFrequency(stemmedWordsList);
             tagsDiversity = LiteralAnalysis.GetTagsDiversity(posTags);
 
-            return new Feature(sentence, wordCount, averageLetterCount, nounFrequency, verbFrequency, mostCommonWordFrequency, 0, authorId);
+            return new Feature(sentence, wordCount, wordsCountWithoutStopWords, averageLetterCount, nounFrequency, verbFrequency, mostCommonWordFrequency, tagsDiversity, authorId);
         }
     }
 }
