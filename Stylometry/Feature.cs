@@ -54,9 +54,7 @@ namespace Stylometry
 
         private static Feature GenerateFeatureInstance(string sentence, int authorId)
         {
-            int wordCount, averageLetterCount, mostCommonWordFrequency, tagsDiversity;
-
-            float nounFrequency, verbFrequency;
+            int wordCount, averageLetterCount, mostCommonWordFrequency, tagsDiversity, nounFrequency, verbFrequency;
 
             List<string> wordsList = WordTokenizer.TokenizeWords(sentence);
 

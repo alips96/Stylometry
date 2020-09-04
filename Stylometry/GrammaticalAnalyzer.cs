@@ -17,7 +17,7 @@ namespace Stylometry
             "i","a","about","an","are","as","at","be","by","for","in","is","it","of","to","the","will","who","there","and"
         };
 
-        internal static float GetNumberOfNouns(string[] posArr, int wordCount)
+        internal static int GetNumberOfNouns(string[] posArr, int wordCount)
         {
             int nounCounter = 0;
 
@@ -29,16 +29,10 @@ namespace Stylometry
                 }
             }
 
-            return NormalizeQuantity(nounCounter,wordCount);
+            return nounCounter;
         }
 
-        private static float NormalizeQuantity(int nounCounter, int wordCount)
-        {
-            //float value = (float)nounCounter / wordCount;
-            return (float) nounCounter / wordCount;
-        }
-
-        internal static float GetNumberOfVerbs(string[] posArr, int wordCount)
+        internal static int GetNumberOfVerbs(string[] posArr, int wordCount)
         {
             int verbCounter = 0;
 
@@ -50,7 +44,7 @@ namespace Stylometry
                 }
             }
 
-            return NormalizeQuantity(verbCounter, wordCount);
+            return verbCounter;
         }
 
         internal static int RemoveStopWords(List<string> wordsList)
