@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="GrammaticalAnalyzer.cs" />
     <Compile Include="Lemmatizer.cs" />
+    <Compile Include="LiteralAnalysis.cs" />
     <Compile Include="PosTagger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

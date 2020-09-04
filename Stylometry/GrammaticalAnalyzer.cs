@@ -14,7 +14,7 @@ namespace Stylometry
 
         private static readonly HashSet<string> stopWords = new HashSet<string>()
         {
-            "i","a","about","an","are","as","at","be","by","for","in","is","it","of","to","the","will","who"
+            "i","a","about","an","are","as","at","be","by","for","in","is","it","of","to","the","will","who","there","and"
         };
 
         internal static float GetNumberOfNouns(string[] posArr, int wordCount)

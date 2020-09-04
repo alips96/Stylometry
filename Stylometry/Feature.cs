@@ -54,8 +54,7 @@ namespace Stylometry
 
         private static Feature GenerateFeatureInstance(string sentence, int authorId)
         {
-            int wordCount, averageLetterCount, mostCommonWordCount, secondMostCommonWordCount;
-            mostCommonWordCount = secondMostCommonWordCount = 0;
+            int wordCount, averageLetterCount, mostCommonWordFrequency, tagsDiversity;
 
             float nounFrequency, verbFrequency;
 
@@ -74,7 +73,10 @@ namespace Stylometry
             List<string> stemmedWordsList = Stemmer.GetStemmedWordsList(wordsList);
             //List<string> lemmatizedWordsList = Lemmatizer.GetLemmatizedWordsList(stemmedWordsList, posTags);
 
-            return new Feature(sentence, wordCount, averageLetterCount, nounFrequency, verbFrequency, mostCommonWordCount, secondMostCommonWordCount, authorId);
+            mostCommonWordFrequency = LiteralAnalysis.GetMostCommonWordFrequency(stemmedWordsList);
+            tagsDiversity = LiteralAnalysis.GetTagsDiversity(posTags);
+
+            return new Feature(sentence, wordCount, averageLetterCount, nounFrequency, verbFrequency, mostCommonWordFrequency, 0, authorId);
         }
     }
 }
