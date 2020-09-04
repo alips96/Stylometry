@@ -66,8 +66,10 @@ namespace Stylometry
 
             string[] posTags = PosTagger.PosTagTokens(wordsList.ToArray());
 
-            nounFrequency = GrammaticalAnalyzer.GetNumberOfNouns(posTags, wordCount);
-            verbFrequency = GrammaticalAnalyzer.GetNumberOfVerbs(posTags, wordCount);
+            //eliminating stop words of count
+            int wordsCountWithoutStopWords = GrammaticalAnalyzer.RemoveStopWords(wordsList);
+            nounFrequency = GrammaticalAnalyzer.GetNumberOfNouns(posTags, wordsCountWithoutStopWords);
+            verbFrequency = GrammaticalAnalyzer.GetNumberOfVerbs(posTags, wordsCountWithoutStopWords);
 
             return new Feature(sentence, wordCount, averageLetterCount, nounFrequency, verbFrequency, mostCommonWordCount, secondMostCommonWordCount, authorId);
         }

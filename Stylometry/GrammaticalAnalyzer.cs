@@ -12,6 +12,11 @@ namespace Stylometry
         private static readonly HashSet<string> nounsSet = new HashSet<string>() { "NN", "NNS" };
         private static readonly HashSet<string> verbSet = new HashSet<string>() { "VB", "VBN", "VBZ" };
 
+        private static readonly HashSet<string> stopWords = new HashSet<string>()
+        {
+            "i","a","about","an","are","as","at","be","by","for","in","is","it","of","to","the","will","who"
+        };
+
         internal static float GetNumberOfNouns(string[] posArr, int wordCount)
         {
             int nounCounter = 0;
@@ -46,6 +51,21 @@ namespace Stylometry
             }
 
             return NormalizeQuantity(verbCounter, wordCount);
+        }
+
+        internal static int RemoveStopWords(List<string> wordsList)
+        {
+            int counter = 0;
+
+            foreach (var item in wordsList)
+            {
+                if (!stopWords.Contains(item))
+                {
+                    counter++;
+                }
+            }
+
+            return counter;
         }
     }
 }
