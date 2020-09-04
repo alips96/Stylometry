@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNLP.Tools.Trees;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,23 +9,43 @@ namespace Stylometry
 {
     class GrammaticalAnalyzer
     {
-        //private string mModelPath = @"C:\Users\ATS\Documents\Visual Studio 2012\Projects\Google_page_speed_json\Google_page_speed_json\bin\Release\";
-        private static OpenNLP.Tools.PosTagger.EnglishMaximumEntropyPosTagger mPosTagger;
+        private static readonly HashSet<string> nounsSet = new HashSet<string>() { "NN", "NNS" };
+        private static readonly HashSet<string> verbSet = new HashSet<string>() { "VB", "VBN", "VBZ" };
 
-        internal static int GetNumberOfNouns(List<string> wordsList, int wordCount)
+        internal static float GetNumberOfNouns(string[] posArr, int wordCount)
         {
-            string[] s = PosTagTokens(wordsList.ToArray());
-            return 0;
-        }
+            int nounCounter = 0;
 
-        private static string[] PosTagTokens(string[] tokens)
-        {
-            if (mPosTagger == null)
+            foreach (var item in posArr)
             {
-                mPosTagger = new OpenNLP.Tools.PosTagger.EnglishMaximumEntropyPosTagger("EnglishPOS.nbin");
+                if (nounsSet.Contains(item))
+                {
+                    nounCounter++;
+                }
             }
 
-            return mPosTagger.Tag(tokens);
+            return NormalizeQuantity(nounCounter,wordCount);
+        }
+
+        private static float NormalizeQuantity(int nounCounter, int wordCount)
+        {
+            //float value = (float)nounCounter / wordCount;
+            return (float) nounCounter / wordCount;
+        }
+
+        internal static float GetNumberOfVerbs(string[] posArr, int wordCount)
+        {
+            int verbCounter = 0;
+
+            foreach (var item in posArr)
+            {
+                if (verbSet.Contains(item))
+                {
+                    verbCounter++;
+                }
+            }
+
+            return NormalizeQuantity(verbCounter, wordCount);
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Stylometry
         public string Sentence { get; set; }
         public int WordCount { get; set; }
         public int AverageLetterCount { get; set; }
-        public int NounCount { get; set; }
-        public int VerbCount { get; set; }
+        public float NounFrequency { get; set; }
+        public float VerbFrequency { get; set; }
         public int MostCommonWordCount { get; set; }
         public int SecondMostCommonWordCount { get; set; }
         public int AuthorId { get; set; }
@@ -20,15 +20,15 @@ namespace Stylometry
         public List<string> TrainTokens { get; set; }
         public List<string> TestTokens { get; set; }
 
-        public Feature(string _Sentence, int _WordCound, int _AverageLetterCount
-            , int _NounCount, int _VerbCount, int _MostCommonWordCount,
+        public Feature(string _Sentence, int _WordCount, int _AverageLetterCount
+            , float _NounFrequency, float _VerbFrequency, int _MostCommonWordCount,
             int _SecondMostCommonWordCount, int _AuthorId)
         {
             Sentence = _Sentence;
-            WordCount = _WordCound;
+            WordCount = _WordCount;
             AverageLetterCount = _AverageLetterCount;
-            NounCount = _NounCount;
-            VerbCount = _VerbCount;
+            NounFrequency = _NounFrequency;
+            VerbFrequency = _VerbFrequency;
             MostCommonWordCount = _MostCommonWordCount;
             SecondMostCommonWordCount = _SecondMostCommonWordCount;
             AuthorId = _AuthorId;
@@ -54,17 +54,22 @@ namespace Stylometry
 
         private static Feature GenerateFeatureInstance(string sentence, int authorId)
         {
-            int wordCount, averageLetterCount, nounCount, verbCount, mostCommonWordCount, secondMostCommonWordCount;
-            wordCount = averageLetterCount = nounCount = verbCount = mostCommonWordCount = secondMostCommonWordCount = 0;
+            int wordCount, averageLetterCount, mostCommonWordCount, secondMostCommonWordCount;
+            wordCount = averageLetterCount = mostCommonWordCount = secondMostCommonWordCount = 0;
+
+            float nounFrequency, verbFrequency;
 
             List<string> wordsList = WordTokenizer.TokenizeWords(sentence);
 
             wordCount = StructuralAnalyzer.CountWords(wordsList);
             averageLetterCount = StructuralAnalyzer.GetAverageLetterCount(wordsList, wordCount);
 
-            nounCount = GrammaticalAnalyzer.GetNumberOfNouns(wordsList, wordCount);
+            string[] posTags = PosTagger.PosTagTokens(wordsList.ToArray());
 
-            return new Feature(sentence, wordCount, averageLetterCount, nounCount, verbCount, mostCommonWordCount, secondMostCommonWordCount, authorId);
+            nounFrequency = GrammaticalAnalyzer.GetNumberOfNouns(posTags, wordCount);
+            verbFrequency = GrammaticalAnalyzer.GetNumberOfVerbs(posTags, wordCount);
+
+            return new Feature(sentence, wordCount, averageLetterCount, nounFrequency, verbFrequency, mostCommonWordCount, secondMostCommonWordCount, authorId);
         }
     }
 }
