@@ -16,7 +16,7 @@ namespace Stylometry
     {
         internal static void StartTrainingAndTestData(List<TrainedData> featuresList)
         {
-            /*double[][] inputs = GetInputs(featuresList);
+            double[][] inputs = GetInputs(featuresList);
             //{
             //    Sparse.FromDense(new double[] { 0, 0 }), // the XOR function takes two booleans
             //    Sparse.FromDense(new double[] { 0, 1 }), // and computes their exclusive or: the
@@ -35,7 +35,7 @@ namespace Stylometry
             var learn = new SequentialMinimalOptimizationRegression<Polynomial>()
             {
                 Kernel = new Polynomial(2), // Polynomial Kernel of 2nd degree
-                Complexity = 5
+                Complexity = 1
             };
 
             SupportVectorMachine<Polynomial> svm = learn.Learn(inputs, outputs);
@@ -51,42 +51,42 @@ namespace Stylometry
             //IMulticlassClassifier<double[], int>
             //Accord.Statistics.Analysis.ConfusionMatrix s = new Accord.Statistics.Analysis.ConfusionMatrix(new int[2,3]);
             //s.pre
-            //bool[] prediction = svm.Decide(inputs);*/
-            double[][] inputs = // (x, y)
-            {
-                new double[] { 0,  1 }, // 2*0 + 1 =  1
-                new double[] { 4,  3 }, // 2*4 + 3 = 11
-                new double[] { 8, -8 }, // 2*8 - 8 =  8
-                new double[] { 2,  2 }, // 2*2 + 2 =  6
-                new double[] { 6,  1 }, // 2*6 + 1 = 13
-                new double[] { 5,  4 }, // 2*5 + 4 = 14
-                new double[] { 9,  1 }, // 2*9 + 1 = 19
-                new double[] { 1,  6 }, // 2*1 + 6 =  8
-            };
+            //bool[] prediction = svm.Decide(inputs);
+            //double[][] inputs = // (x, y)
+            //{
+            //    new double[] { 0,  1 }, // 2*0 + 1 =  1
+            //    new double[] { 4,  3 }, // 2*4 + 3 = 11
+            //    new double[] { 8, -8 }, // 2*8 - 8 =  8
+            //    new double[] { 2,  2 }, // 2*2 + 2 =  6
+            //    new double[] { 6,  1 }, // 2*6 + 1 = 13
+            //    new double[] { 5,  4 }, // 2*5 + 4 = 14
+            //    new double[] { 9,  1 }, // 2*9 + 1 = 19
+            //    new double[] { 1,  6 }, // 2*1 + 6 =  8
+            //};
 
-            double[] outputs = // f(x, y)
-            {
-                1, 11, 8, 6, 13, 14, 19, 8
-            };
+            //double[] outputs = // f(x, y)
+            //{
+            //    1, 11, 8, 6, 13, 14, 19, 8
+            //};
 
-            // Create the sequential minimal optimization teacher
-            var learn = new SequentialMinimalOptimizationRegression<Polynomial>()
-            {
-                Kernel = new Polynomial(2), // Polynomial Kernel of 2nd degree
-                Complexity = 100
-            };
+            //// Create the sequential minimal optimization teacher
+            //var learn = new SequentialMinimalOptimizationRegression<Polynomial>()
+            //{
+            //    Kernel = new Polynomial(2), // Polynomial Kernel of 2nd degree
+            //    Complexity = 100
+            //};
 
-            // Run the learning algorithm
-            SupportVectorMachine<Polynomial> svm = learn.Learn(inputs, outputs);
+            //// Run the learning algorithm
+            //SupportVectorMachine<Polynomial> svm = learn.Learn(inputs, outputs);
 
-            // Compute the predicted scores
-            double[] predicted = svm.Score(inputs);
+            //// Compute the predicted scores
+            //double[] predicted = svm.Score(inputs);
 
-            // Compute the error between the expected and predicted
-            double error = new SquareLoss(outputs).Loss(predicted);
+            //// Compute the error between the expected and predicted
+            //double error = new SquareLoss(outputs).Loss(predicted);
 
-            // Compute the answer for one particular example
-            double fxy = svm.Score(inputs[0]); // 1.0003849827673186
+            //// Compute the answer for one particular example
+            //double fxy = svm.Score(inputs[0]); // 1.0003849827673186
 
         }
 
@@ -101,13 +101,12 @@ namespace Stylometry
 
                 arr[i] = new double[]
                 {
-                         //data.WordFrequency,
-                         //data.AverageLetterLength,
-                         data.AverageLetterLength / data.WordFrequency,
-                         data.NounFrequency,
-                         data.VerbFrequency,
-                         data.MostCommonWordCount,
-                         data.TagsDiversity
+                         data.WordFrequency,
+                         data.AverageLetterLength,
+                         data.NounFrequency * data.WordFrequency,
+                         data.VerbFrequency * data.WordFrequency,
+                         data.MostCommonWordCount * data.WordFrequency,
+                         data.TagsDiversity * data.WordFrequency
                 };
             }
 
@@ -118,17 +117,22 @@ namespace Stylometry
         {
             int count = featuresList.Count;
             double[] outputs = new double[count];
-            int currentId = 0;
-            int index = 1;
+            //int currentId = 0;
+            //float index = 1;
+
+            //for (int i = 0; i < count; i++)
+            //{
+            //    if (featuresList[i].AuthorId != currentId)
+            //    {
+            //        currentId = featuresList[i].AuthorId;
+            //        index += 0.1f;
+            //    }
+            //    outputs[i] = index;
+            //}
 
             for (int i = 0; i < count; i++)
             {
-                if(featuresList[i].AuthorId != currentId)
-                {
-                    currentId = featuresList[i].AuthorId;
-                    index += 10;
-                }
-                outputs[i] = index;
+                outputs[i] = (double)featuresList[i].AuthorId / 100000;
             }
 
             return outputs;
