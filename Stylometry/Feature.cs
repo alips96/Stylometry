@@ -18,9 +18,6 @@ namespace Stylometry
         public int TagsDiversity { get; set; }
         public int AuthorId { get; set; }
 
-        public List<string> TrainTokens { get; set; }
-        public List<string> TestTokens { get; set; }
-
         public Feature(string _Sentence, int _WordCount, int _WordCountWithoutStopWords, int _AverageLetterCount
             , int _NounFrequency, int _VerbFrequency, int _MostCommonWordCount,
             int _TagsDiversity, int _AuthorId)
