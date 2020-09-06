@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Accord.MachineLearning.VectorMachines;
+using Accord.Statistics.Kernels;
+using OpenNLP.Tools.Tokenize;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -19,9 +22,16 @@ namespace Stylometry
             InitializeComponent();
             CreateAuthorsList();
             TokenizeAuthorsText();
-            ExtractSentenceFeatures();
-            NormalizerFeatures();
-            TrainAndTestData();
+            ExtractSentenceFeatures(true); //to train data
+            TrainData();
+            ExtractSentenceFeatures(false); //to test data
+            TestData();
+        }
+
+        private void TestData()
+        {
+            double[] predicted = StatisticalClassification.TestData(normalizedFeaturesList);
+            Evaluator.EvaluateResults(predicted);
         }
 
         private void NormalizerFeatures()
@@ -29,14 +39,15 @@ namespace Stylometry
             normalizedFeaturesList = Normalizer.NormalizeFeaturesList(sentenceFeaturesList);
         }
 
-        private void TrainAndTestData()
+        private void TrainData()
         {
-            StatisticalClassification.StartTrainingAndTestData(normalizedFeaturesList);
+            StatisticalClassification.TrainData(normalizedFeaturesList);
         }
 
-        private void ExtractSentenceFeatures()
+        private void ExtractSentenceFeatures(bool isTrainData)
         {
-            sentenceFeaturesList = Feature.ExtractFeatures(sentencetokenizedList);
+            sentenceFeaturesList = Feature.ExtractFeatures(sentencetokenizedList, isTrainData);
+            NormalizerFeatures();
         }
 
         private void TokenizeAuthorsText()

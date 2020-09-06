@@ -33,13 +33,15 @@ namespace Stylometry
             AuthorId = _AuthorId;
         }
 
-        internal static List<Feature> ExtractFeatures(List<Tokenizer> sentenceList)
+        internal static List<Feature> ExtractFeatures(List<Tokenizer> sentenceList, bool isTrainTokens)
         {
             List<Feature> featureList = new List<Feature>();
 
             foreach (Tokenizer tokenizer in sentenceList)
             {
-                foreach (string sentence in tokenizer.TrainTokens)
+                List<string> execuitiveList = isTrainTokens ? tokenizer.TrainTokens : tokenizer.TestTokens; //specifying whether it is the train data or test data.
+
+                foreach (string sentence in execuitiveList)
                 {
                     if (sentence != "..") //exeption
                     {

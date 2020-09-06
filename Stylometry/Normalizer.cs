@@ -18,13 +18,24 @@ namespace Stylometry
                     (
                     new TrainedData(
                     item.WordCount,
-                    item.AverageLetterCount,
-                    (float) item.NounFrequency / item.WordCountWithoutStopWords,
-                    (float) item.VerbFrequency / item.WordCountWithoutStopWords,
-                    (float) item.MostCommonWordCount / item.WordCount,
-                    (float) item.TagsDiversity / item.WordCount,
+                    (float)item.AverageLetterCount / item.WordCountWithoutStopWords,
+                    (float)item.NounFrequency / item.WordCountWithoutStopWords,
+                    (float)item.VerbFrequency / item.WordCountWithoutStopWords,
+                    (float)item.MostCommonWordCount / item.WordCount,
+                    (float)item.TagsDiversity / item.WordCount,
                     item.AuthorId)
                     );
+                //normalizedList.Add
+                //(
+                //new TrainedData(
+                //item.WordCount,
+                //(float)item.AverageLetterCount,
+                //(float)item.NounFrequency,
+                //(float)item.VerbFrequency,
+                //(float)item.MostCommonWordCount,
+                //(float)item.TagsDiversity,
+                //item.AuthorId)
+                //);
             }
 
             return normalizedList;

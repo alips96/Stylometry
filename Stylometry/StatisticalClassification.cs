@@ -9,156 +9,126 @@ using Accord.MachineLearning;
 using Accord.Math;
 using Accord.Statistics.Kernels;
 using Accord.Math.Optimization.Losses;
+using System.Windows.Forms;
+using org.w3c.dom.css;
 
 namespace Stylometry
 {
     public class StatisticalClassification
-    {
-        internal static void StartTrainingAndTestData(List<TrainedData> featuresList)
-        {
-            double[][] inputs = GetInputs(featuresList);
-            //{
-            //    Sparse.FromDense(new double[] { 0, 0 }), // the XOR function takes two booleans
-            //    Sparse.FromDense(new double[] { 0, 1 }), // and computes their exclusive or: the
-            //    Sparse.FromDense(new double[] { 1, 0 }), // output is true only if the two booleans
-            //    Sparse.FromDense(new double[] { 1, 1 })  // are different
-            //};
+    { 
+        public static double[] outputs;
+        private static SupportVectorMachine<Polynomial> svm;
 
-            double[] outputs = GetOutputs(featuresList);
-            //{
-            //    0, // 0 xor 0 = 0 (inputs are equal)
-            //    1, // 0 xor 1 = 1 (inputs are different)
-            //    1, // 1 xor 0 = 1 (inputs are different)
-            //    0, // 1 xor 1 = 0 (inputs are equal)
-            //};
+        internal static void TrainData(List<TrainedData> featuresList)
+        {
+            // Generate always same random numbers
+            Accord.Math.Random.Generator.Seed = 0;
+
+            double[][] inputs = GetInputs(featuresList);
+
+            outputs = GetOutputs(inputs);
+
 
             var learn = new SequentialMinimalOptimizationRegression<Polynomial>()
             {
                 Kernel = new Polynomial(2), // Polynomial Kernel of 2nd degree
-                Complexity = 1
+                Complexity = 100
             };
 
-            SupportVectorMachine<Polynomial> svm = learn.Learn(inputs, outputs);
-            //var svm = learn.Learn(inputs, output);
-            // Compute the predicted scores
-            double[] predicted = svm.Score(inputs);
+            double[] output1 = outputs;
+            svm = learn.Learn(inputs, outputs); //learn svm.
+
+            double[] predicted = svm.Score(inputs); // Compute the predicted scores
 
             // Compute the error between the expected and predicted
             double error = new SquareLoss(outputs).Loss(predicted);
+        }
 
-            // Compute the answer for one particular example
-            double fxy = svm.Score(inputs[0]); // 1.0003849827673186
-            //IMulticlassClassifier<double[], int>
-            //Accord.Statistics.Analysis.ConfusionMatrix s = new Accord.Statistics.Analysis.ConfusionMatrix(new int[2,3]);
-            //s.pre
-            //bool[] prediction = svm.Decide(inputs);
-            //double[][] inputs = // (x, y)
-            //{
-            //    new double[] { 0,  1 }, // 2*0 + 1 =  1
-            //    new double[] { 4,  3 }, // 2*4 + 3 = 11
-            //    new double[] { 8, -8 }, // 2*8 - 8 =  8
-            //    new double[] { 2,  2 }, // 2*2 + 2 =  6
-            //    new double[] { 6,  1 }, // 2*6 + 1 = 13
-            //    new double[] { 5,  4 }, // 2*5 + 4 = 14
-            //    new double[] { 9,  1 }, // 2*9 + 1 = 19
-            //    new double[] { 1,  6 }, // 2*1 + 6 =  8
-            //};
+        internal static double[] TestData(List<TrainedData> featuresList)
+        {
+            double[][] inputs = GetInputs(featuresList);
+            double[] predicted = svm.Score(inputs);
+            //double[] output1 = outputs;
+            double error = new SquareLoss(outputs).Loss(predicted);
 
-            //double[] outputs = // f(x, y)
-            //{
-            //    1, 11, 8, 6, 13, 14, 19, 8
-            //};
-
-            //// Create the sequential minimal optimization teacher
-            //var learn = new SequentialMinimalOptimizationRegression<Polynomial>()
-            //{
-            //    Kernel = new Polynomial(2), // Polynomial Kernel of 2nd degree
-            //    Complexity = 100
-            //};
-
-            //// Run the learning algorithm
-            //SupportVectorMachine<Polynomial> svm = learn.Learn(inputs, outputs);
-
-            //// Compute the predicted scores
-            //double[] predicted = svm.Score(inputs);
-
-            //// Compute the error between the expected and predicted
-            //double error = new SquareLoss(outputs).Loss(predicted);
-
-            //// Compute the answer for one particular example
-            //double fxy = svm.Score(inputs[0]); // 1.0003849827673186
-
+            return predicted;
         }
 
         private static double[][] GetInputs(List<TrainedData> featuresList)
         {
-            int count = featuresList.Count;
-            double[][] arr = new double[count][];
+            List<double[]> inputList = new List<double[]>();
 
-            for (int i = 0; i < count; i++)
+            float avgLetterLength = 0f;
+            float nFrequency = 0f;
+            float vFrequency = 0f;
+            float mostCount = 0f;
+            float tDiversity = 0f;
+
+            int indexCounter = 0;
+
+            int savedAuthorId = featuresList[0].AuthorId;
+
+            foreach (var item in featuresList)
             {
-                TrainedData data = featuresList[i];
+                avgLetterLength += item.AverageLetterLength;
+                nFrequency += item.NounFrequency;
+                vFrequency += item.VerbFrequency;
+                mostCount += item.MostCommonWordCount;
+                tDiversity += item.TagsDiversity;
+                indexCounter++;
 
-                arr[i] = new double[]
+                if(item.AuthorId != savedAuthorId)
                 {
-                         data.WordFrequency,
-                         data.AverageLetterLength,
-                         data.NounFrequency * data.WordFrequency,
-                         data.VerbFrequency * data.WordFrequency,
-                         data.MostCommonWordCount * data.WordFrequency,
-                         data.TagsDiversity * data.WordFrequency
-                };
+                    savedAuthorId = item.AuthorId;
+                    inputList.Add(new double[] 
+                    { 
+                        avgLetterLength / indexCounter
+                        , nFrequency / indexCounter
+                        , vFrequency / indexCounter
+                        , mostCount / indexCounter
+                        , tDiversity / indexCounter
+                    });
+
+                    avgLetterLength = nFrequency = vFrequency = mostCount = tDiversity = 0f;
+                    indexCounter = 0;
+                }
             }
 
-            return arr;
+            inputList.Add(new double[]
+            {
+                avgLetterLength / indexCounter
+                , nFrequency / indexCounter
+                , vFrequency / indexCounter
+                , mostCount / indexCounter
+                , tDiversity / indexCounter
+            });
+
+            return inputList.ToArray();
         }
 
-        private static double[] GetOutputs(List<TrainedData> featuresList)
+        private static double[] GetOutputs(double[][] inputs)
         {
-            int count = featuresList.Count;
-            double[] outputs = new double[count];
-            //int currentId = 0;
-            //float index = 1;
+            double[] outputs = new double[inputs.Length];
 
-            //for (int i = 0; i < count; i++)
-            //{
-            //    if (featuresList[i].AuthorId != currentId)
-            //    {
-            //        currentId = featuresList[i].AuthorId;
-            //        index += 0.1f;
-            //    }
-            //    outputs[i] = index;
-            //}
-
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < inputs.Length; i++)
             {
-                outputs[i] = (double)featuresList[i].AuthorId / 100000;
+                double fx = AddFormula(inputs[i]);
+                outputs[i] = fx;
             }
 
             return outputs;
         }
 
-        //private static Sparse<double>[] GetInputs(List<TrainedData> featuresList)
-        //{
-        //    int count = featuresList.Count;
-        //    Sparse<double>[] arr = new Sparse<double>[count];
+        private static double AddFormula(double[] vs)
+        {
+            double i = 0;
 
-        //    for (int i = 0; i < count; i++)
-        //    {
-        //        TrainedData data = featuresList[i];
+            foreach (var item in vs)
+            {
+                i += item;
+            }
 
-        //        arr[i] = Sparse.FromDense(new double[]
-        //        {
-        //             data.WordFrequency,
-        //             data.AverageLetterLength,
-        //             data.NounFrequency,
-        //             data.VerbFrequency,
-        //             data.MostCommonWordCount,
-        //             data.TagsDiversity
-        //        });
-        //    }
-
-        //    return arr;
-        //}
+            return i++;
+        }
     }
 }
