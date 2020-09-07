@@ -70,12 +70,12 @@ namespace Stylometry
             verbFrequency = GrammaticalAnalyzer.GetNumberOfVerbs(posTags);
 
             List<string> stemmedWordsList = Stemmer.GetStemmedWordsList(wordsList);
-            //List<string> lemmatizedWordsList = Lemmatizer.GetLemmatizedWordsList(stemmedWordsList, posTags);
 
             mostCommonWordFrequency = LiteralAnalysis.GetMostCommonWordFrequency(stemmedWordsList);
             tagsDiversity = LiteralAnalysis.GetTagsDiversity(posTags);
 
-            return new Feature(sentence, wordCount, wordsCountWithoutStopWords, averageLetterCount, nounFrequency, verbFrequency, mostCommonWordFrequency, tagsDiversity, authorId);
+            return new Feature(sentence, wordCount, wordsCountWithoutStopWords, averageLetterCount,
+                nounFrequency, verbFrequency, mostCommonWordFrequency, tagsDiversity, authorId);
         }
     }
 }

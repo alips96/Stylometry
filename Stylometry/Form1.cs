@@ -58,7 +58,6 @@ namespace Stylometry
         private void CreateAuthorsList()
         {
             authorsList = ProcessCorpus("Corpus.csv");
-            StartButton.Text = authorsList[0].Text;
         }
 
         private List<Author> ProcessCorpus(string path)

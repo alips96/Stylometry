@@ -20,7 +20,7 @@ namespace Stylometry
         }
 
         /// <summary>
-        /// Here we add all the text belonging to each author and then tokenize and divide it inot to separate 
+        /// Here we add all the text belonging to each author and then tokenize and divide it into to separate 
         /// train and test lists.
         /// </summary>
         /// <param name="authorsList"></param>
