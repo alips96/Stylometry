@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Accord.MachineLearning;
 
 namespace Stylometry
 {
@@ -13,7 +14,6 @@ namespace Stylometry
             char[] splitTokens = new char[] { ' ', ':', '(', ')', '.', '!', '?', ',', '*', '{', '}', '[', ']' };
             List<string> words = sentence.Split(splitTokens, StringSplitOptions.RemoveEmptyEntries).ToList();
             words = FixFloatNumbers(words);
-
             return words;
         }
 

@@ -34,7 +34,7 @@ namespace Stylometry
             Evaluator.EvaluateResults(predicted);
         }
 
-        private void NormalizerFeatures()
+        private void NormalizeFeatures()
         {
             normalizedFeaturesList = Normalizer.NormalizeFeaturesList(sentenceFeaturesList);
         }
@@ -47,7 +47,7 @@ namespace Stylometry
         private void ExtractSentenceFeatures(bool isTrainData)
         {
             sentenceFeaturesList = Feature.ExtractFeatures(sentencetokenizedList, isTrainData);
-            NormalizerFeatures();
+            NormalizeFeatures();
         }
 
         private void TokenizeAuthorsText()

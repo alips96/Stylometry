@@ -12,6 +12,8 @@ namespace Stylometry
         public List<string> TrainTokens { get; set; }
         public List<string> TestTokens { get; set; }
 
+        private static OpenNLP.Tools.SentenceDetect.MaximumEntropySentenceDetector mSentenceDetector;
+
         public Tokenizer(int _authorId, List<string> _TrainTokens, List<string> _TestTokens)
         {
             AuthorId = _authorId;
@@ -47,7 +49,7 @@ namespace Stylometry
             List<string> testTokens = new List<string>();
             List<string>[] returnList = new List<string>[2];
 
-            List<string> allTokens = item.Value.Split(new string[] { ". " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> allTokens = SplitSentences(item.Value);
 
             float splitIndex = 0.7f * allTokens.Count;
 
@@ -67,6 +69,23 @@ namespace Stylometry
             returnList[1] = testTokens;
 
             return returnList;
+        }
+
+        private static List<string> SplitSentences(string paragraph)
+        {
+            if (mSentenceDetector == null)
+            {
+                mSentenceDetector = new OpenNLP.Tools.SentenceDetect.EnglishMaximumEntropySentenceDetector("EnglishSD.nbin");
+            }
+
+            return mSentenceDetector.SentenceDetect(paragraph).ToList();
+        }
+
+        internal static List<string> SplitWords(string sentence)
+        {
+            sentence = sentence.ToLower(); // to lower case.
+
+            return Accord.MachineLearning.Tools.Tokenize(sentence).ToList();
         }
 
         private static Dictionary<int, string> GetAuthorsDic(List<Author> authorsList)

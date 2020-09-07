@@ -13,16 +13,17 @@ namespace Stylometry
             return wordsList.Count;
         }
 
-        internal static int GetAverageLetterCount(List<string> wordsList, int wordCount)
+        internal static int GetStopWordsFrequency(List<string> wordsList, int wordCount)
         {
             int counter = 0;
 
             foreach (string word in wordsList)
             {
-                counter += word.Length;
+                if (!GrammaticalAnalyzer.stopWords.Contains(word))
+                    counter++;
             }
 
-            return counter / wordCount;
+            return counter;
         }
     }
 }

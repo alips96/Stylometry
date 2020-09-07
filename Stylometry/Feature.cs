@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Stylometry
@@ -11,21 +12,21 @@ namespace Stylometry
         public string Sentence { get; set; }
         public int WordCount { get; set; }
         public int WordCountWithoutStopWords { get; set; }
-        public int AverageLetterCount { get; set; }
+        public int StopWordFrequency { get; set; }
         public float NounFrequency { get; set; }
         public float VerbFrequency { get; set; }
         public int MostCommonWordCount { get; set; }
         public int TagsDiversity { get; set; }
         public int AuthorId { get; set; }
 
-        public Feature(string _Sentence, int _WordCount, int _WordCountWithoutStopWords, int _AverageLetterCount
+        public Feature(string _Sentence, int _WordCount, int _StopWordFrequency, int _AverageLetterCount
             , int _NounFrequency, int _VerbFrequency, int _MostCommonWordCount,
             int _TagsDiversity, int _AuthorId)
         {
             Sentence = _Sentence;
             WordCount = _WordCount;
-            WordCountWithoutStopWords = _WordCountWithoutStopWords;
-            AverageLetterCount = _AverageLetterCount;
+            WordCountWithoutStopWords = _StopWordFrequency;
+            StopWordFrequency = _AverageLetterCount;
             NounFrequency = _NounFrequency;
             VerbFrequency = _VerbFrequency;
             MostCommonWordCount = _MostCommonWordCount;
@@ -43,7 +44,7 @@ namespace Stylometry
 
                 foreach (string sentence in execuitiveList)
                 {
-                    if (sentence != "..") //exeption
+                    if (sentence.Length > 2) //exeption
                     {
                         featureList.Add(GenerateFeatureInstance(sentence, tokenizer.AuthorId));
                     }
@@ -55,12 +56,12 @@ namespace Stylometry
 
         private static Feature GenerateFeatureInstance(string sentence, int authorId)
         {
-            int wordCount, averageLetterCount, mostCommonWordFrequency, tagsDiversity, nounFrequency, verbFrequency;
+            int wordCount, stopWordFrequency, mostCommonWordFrequency, tagsDiversity, nounFrequency, verbFrequency;
 
-            List<string> wordsList = WordTokenizer.TokenizeWords(sentence);
+            List<string> wordsList = Tokenizer.SplitWords(sentence);
 
             wordCount = StructuralAnalyzer.CountWords(wordsList);
-            averageLetterCount = StructuralAnalyzer.GetAverageLetterCount(wordsList, wordCount);
+            stopWordFrequency = StructuralAnalyzer.GetStopWordsFrequency(wordsList, wordCount);
 
             string[] posTags = PosTagger.PosTagTokens(wordsList.ToArray());
 
@@ -74,7 +75,7 @@ namespace Stylometry
             mostCommonWordFrequency = LiteralAnalysis.GetMostCommonWordFrequency(stemmedWordsList);
             tagsDiversity = LiteralAnalysis.GetTagsDiversity(posTags);
 
-            return new Feature(sentence, wordCount, wordsCountWithoutStopWords, averageLetterCount,
+            return new Feature(sentence, wordCount, wordsCountWithoutStopWords, stopWordFrequency,
                 nounFrequency, verbFrequency, mostCommonWordFrequency, tagsDiversity, authorId);
         }
     }

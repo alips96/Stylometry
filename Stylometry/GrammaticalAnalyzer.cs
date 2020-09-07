@@ -10,9 +10,9 @@ namespace Stylometry
     class GrammaticalAnalyzer
     {
         private static readonly HashSet<string> nounsSet = new HashSet<string>() { "NN", "NNS" };
-        private static readonly HashSet<string> verbSet = new HashSet<string>() { "VB", "VBN", "VBZ" };
+        private static readonly HashSet<string> verbSet = new HashSet<string>() { "VB", "VBN", "VBZ", "VBD", "VBP" , "VBG"};
 
-        private static readonly HashSet<string> stopWords = new HashSet<string>()
+        public static readonly HashSet<string> stopWords = new HashSet<string>()
         {
             "i","a","about","an","are","as","at","be","by","for","in","is","it","of","to","the","will","who","there","and"
         };

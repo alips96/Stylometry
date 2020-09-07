@@ -48,7 +48,7 @@ namespace Stylometry
         {
             double[][] inputs = GetInputs(featuresList);
             double[] predicted = svm.Score(inputs);
-            //double[] output1 = outputs;
+            double[] output1 = outputs;
             double error = new SquareLoss(outputs).Loss(predicted);
 
             return predicted;
@@ -70,7 +70,7 @@ namespace Stylometry
 
             foreach (var item in featuresList)
             {
-                avgLetterLength += item.AverageLetterLength;
+                avgLetterLength += item.StopWordsFrequency;
                 nFrequency += item.NounFrequency;
                 vFrequency += item.VerbFrequency;
                 mostCount += item.MostCommonWordCount;
