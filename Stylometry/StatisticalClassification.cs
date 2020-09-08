@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Accord.MachineLearning.VectorMachines;
 using Accord.MachineLearning.VectorMachines.Learning;
-using Accord.MachineLearning;
-using Accord.Math;
 using Accord.Statistics.Kernels;
 using Accord.Math.Optimization.Losses;
-using System.Windows.Forms;
-using org.w3c.dom.css;
 
 namespace Stylometry
 {
@@ -38,17 +30,13 @@ namespace Stylometry
             double[] output1 = outputs;
             svm = learn.Learn(inputs, outputs); //learn svm.
 
-            double[] predicted = svm.Score(inputs); // Compute the predicted scores
-
-            // Compute the error between the expected and predicted
-            double error = new SquareLoss(outputs).Loss(predicted);
+            double[] predicted = svm.Score(inputs);
         }
 
         internal static double[] TestData(List<TrainedData> featuresList)
         {
             double[][] inputs = GetInputs(featuresList);
             double[] predicted = svm.Score(inputs);
-            double[] output1 = outputs;
             double error = new SquareLoss(outputs).Loss(predicted);
 
             return predicted;
@@ -58,7 +46,7 @@ namespace Stylometry
         {
             List<double[]> inputList = new List<double[]>();
 
-            float avgLetterLength = 0f;
+            float stpWordsFreq = 0f;
             float nFrequency = 0f;
             float vFrequency = 0f;
             float mostCount = 0f;
@@ -70,7 +58,7 @@ namespace Stylometry
 
             foreach (var item in featuresList)
             {
-                avgLetterLength += item.StopWordsFrequency;
+                stpWordsFreq += item.StopWordsFrequency;
                 nFrequency += item.NounFrequency;
                 vFrequency += item.VerbFrequency;
                 mostCount += item.MostCommonWordCount;
@@ -82,21 +70,21 @@ namespace Stylometry
                     savedAuthorId = item.AuthorId;
                     inputList.Add(new double[] 
                     { 
-                        avgLetterLength / indexCounter
+                        stpWordsFreq / indexCounter
                         , nFrequency / indexCounter
                         , vFrequency / indexCounter
                         , mostCount / indexCounter
                         , tDiversity / indexCounter
                     });
 
-                    avgLetterLength = nFrequency = vFrequency = mostCount = tDiversity = 0f;
+                    stpWordsFreq = nFrequency = vFrequency = mostCount = tDiversity = 0f;
                     indexCounter = 0;
                 }
             }
 
             inputList.Add(new double[]
             {
-                avgLetterLength / indexCounter
+                stpWordsFreq / indexCounter
                 , nFrequency / indexCounter
                 , vFrequency / indexCounter
                 , mostCount / indexCounter
@@ -125,7 +113,7 @@ namespace Stylometry
 
             foreach (var item in vs)
             {
-                i += item;
+                i += item * 10;
             }
 
             return i++;

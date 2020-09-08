@@ -174,7 +174,6 @@
     <Compile Include="StructuralAnalyzer.cs" />
     <Compile Include="Tokenizer.cs" />
     <Compile Include="TrainedData.cs" />
-    <Compile Include="WordTokenizer.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

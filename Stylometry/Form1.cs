@@ -1,8 +1,4 @@
-﻿using Accord.MachineLearning.VectorMachines;
-using Accord.Statistics.Kernels;
-using OpenNLP.Tools.Tokenize;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -26,6 +22,24 @@ namespace Stylometry
             TrainData();
             ExtractSentenceFeatures(false); //to test data
             TestData();
+            PrintResults();
+        }
+
+        private void PrintResults()
+        {
+            outputLabel.Text = "Accuracy: " + Evaluator.cm.Accuracy + "\n\n" + "Precision:\n";
+
+            foreach (var item in Evaluator.cm.Precision)
+            {
+                outputLabel.Text += item + "    ";
+            }
+
+            outputLabel.Text += "\n\nRecall:\n";
+
+            foreach (var item in Evaluator.cm.Recall)
+            {
+                outputLabel.Text += item + "    ";
+            }
         }
 
         private void TestData()

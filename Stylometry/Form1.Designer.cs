@@ -28,34 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.StartButton = new System.Windows.Forms.Button();
+            this.outputLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // StartButton
+            // outputLabel
             // 
-            this.StartButton.Location = new System.Drawing.Point(318, 75);
-            this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(144, 73);
-            this.StartButton.TabIndex = 0;
-            this.StartButton.Text = "button1";
-            this.StartButton.UseVisualStyleBackColor = true;
-            //this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
+            this.outputLabel.AutoSize = true;
+            this.outputLabel.Location = new System.Drawing.Point(66, 86);
+            this.outputLabel.Name = "outputLabel";
+            this.outputLabel.Size = new System.Drawing.Size(35, 13);
+            this.outputLabel.TabIndex = 0;
+            this.outputLabel.Text = "label1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.StartButton);
+            this.Controls.Add(this.outputLabel);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button StartButton;
+        private System.Windows.Forms.Label outputLabel;
     }
 }
 

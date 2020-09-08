@@ -60,18 +60,18 @@ namespace Stylometry
 
             List<string> wordsList = Tokenizer.SplitWords(sentence);
 
+            //Structural Analsis
             wordCount = StructuralAnalyzer.CountWords(wordsList);
             stopWordFrequency = StructuralAnalyzer.GetStopWordsFrequency(wordsList, wordCount);
 
+            //Grammatical Analysis
             string[] posTags = PosTagger.PosTagTokens(wordsList.ToArray());
-
-            //eliminating stop words of count
-            int wordsCountWithoutStopWords = GrammaticalAnalyzer.RemoveStopWords(wordsList);
+            int wordsCountWithoutStopWords = wordsList.Count - stopWordFrequency;
             nounFrequency = GrammaticalAnalyzer.GetNumberOfNouns(posTags);
             verbFrequency = GrammaticalAnalyzer.GetNumberOfVerbs(posTags);
 
+            //Literal Analysis
             List<string> stemmedWordsList = Stemmer.GetStemmedWordsList(wordsList);
-
             mostCommonWordFrequency = LiteralAnalysis.GetMostCommonWordFrequency(stemmedWordsList);
             tagsDiversity = LiteralAnalysis.GetTagsDiversity(posTags);
 

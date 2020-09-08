@@ -1,9 +1,4 @@
-﻿using OpenNLP.Tools.Trees;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Stylometry
 {
@@ -45,21 +40,6 @@ namespace Stylometry
             }
 
             return verbCounter;
-        }
-
-        internal static int RemoveStopWords(List<string> wordsList)
-        {
-            int counter = 0;
-
-            foreach (var item in wordsList)
-            {
-                if (!stopWords.Contains(item))
-                {
-                    counter++;
-                }
-            }
-
-            return counter;
         }
     }
 }
